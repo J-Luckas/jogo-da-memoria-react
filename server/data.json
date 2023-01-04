@@ -67,12 +67,89 @@
       "conteudo": "👟"
     }
   ],
+  "esportes": [
+    {
+      "id": "1",
+      "conteudo": "⚽️"
+    },
+    {
+      "id": "2",
+      "conteudo": "🏀"
+    },
+    {
+      "id": "3",
+      "conteudo": "🏈"
+    },
+    {
+      "id": "4",
+      "conteudo": "⚾️"
+    },
+    {
+      "id": "5",
+      "conteudo": "🥎"
+    },
+    {
+      "id": "6",
+      "conteudo": "🎾"
+    },
+    {
+      "id": "7",
+      "conteudo": "🏐"
+    },
+    {
+      "id": "8",
+      "conteudo": "🏉"
+    }
+  ],
+  "escola": [
+    {
+      "id": "1",
+      "conteudo": "👨‍🎓"
+    },
+    {
+      "id": "2",
+      "conteudo": "👩‍🎓"
+    },
+    {
+      "id": "3",
+      "conteudo": "👨‍🏫"
+    },
+    {
+      "id": "4",
+      "conteudo": "👩‍🏫"
+    },
+    {
+      "id": "5",
+      "conteudo": "🏫"
+    },
+    {
+      "id": "6",
+      "conteudo": "📑"
+    },
+    {
+      "id": "7",
+      "conteudo": "🔖"
+    },
+    {
+      "id": "8",
+      "conteudo": "✏️"
+    }
+  ],
   "categorias": [
     {
       "id": "animais"
     },
     {
       "id": "objetos"
+    },
+    {
+      "id": "esportes"
+    },
+    {
+      "id": "escola"
+    },
+    {
+      "id": "aleatorio"
     }
   ]
 }

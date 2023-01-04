@@ -23,8 +23,8 @@ export const Categorias = () => {
       </div>
       <div className="lista-categorias">
         {data.categorias.map((item: any) => (
-          <Link to={`categoria/${item.id}`}>   
-            < Categoria item={ item } />
+          <Link key={item.id} to={`categoria/${item.id}`}>   
+            < Categoria key={item.id} item={ item } />
           </Link>
         ))}
       </div>

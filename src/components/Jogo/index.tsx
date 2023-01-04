@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { embaralharAleatorio } from '../../utils/embaralhar-aleatorio';
 import { CardProps } from '../Card';
 import { Grid } from '../Grid';
 import './styles.css'
@@ -13,14 +14,28 @@ export function Jogo() {
   const navigate = useNavigate();
 
 
-  useEffect( () => {
-    async function requisicaoJogo() {
-      let response = await fetch(`http://localhost:3333/${id}`);
-      const resposta: CardProps[] = await response.json();
-      setCards(resposta);
-    }
+  useEffect( () => {        
+    if( id !== 'aleatorio' ){
+      async function requisicaoJogo() {
+        let response = await fetch(`http://localhost:3333/${id}`);
+        const resposta: CardProps[] = await response.json();
+        setCards(resposta);
+      }
 
-    requisicaoJogo();   
+      requisicaoJogo();   
+    }else{
+      async function getCategoriasAleatorio(): Promise<void> {
+        const result = await fetch(`http://localhost:3333/categorias`);
+
+        const categorias = await result.json();
+
+        const embaralhado = await embaralharAleatorio( categorias );
+        
+        setCards(embaralhado.slice(0, 8));
+      }
+
+      getCategoriasAleatorio();
+    }
     
   },[id] );
   
