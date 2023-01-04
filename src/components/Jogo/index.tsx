@@ -8,7 +8,6 @@ import './styles.css'
 export function Jogo() {
 
   const [ cards, setCards ] = useState<CardProps[] | null>(null);  
-
   const { id } = useParams<{id: string}>();
 
   const navigate = useNavigate();
@@ -21,7 +20,6 @@ export function Jogo() {
         const resposta: CardProps[] = await response.json();
         setCards(resposta);
       }
-
       requisicaoJogo();   
     }else{
       async function getCategoriasAleatorio(): Promise<void> {

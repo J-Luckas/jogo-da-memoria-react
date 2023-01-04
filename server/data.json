@@ -151,5 +151,13 @@
     {
       "id": "aleatorio"
     }
+  ],
+  "modos": [
+    {
+      "id": "tempo"
+    },
+    {
+      "id": "movimento"
+    }
   ]
 }

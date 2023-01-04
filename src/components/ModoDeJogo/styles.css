@@ -1,0 +1,19 @@
+.modos{  
+  max-width: 1030px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+.lista-modos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .8rem;
+}
+
+.info-modos {
+  padding: 2rem;
+  text-align: center;
+
+  font-size: 2.5rem;
+  font-weight: bold;  
+}

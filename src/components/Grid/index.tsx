@@ -2,6 +2,8 @@ import './styles.css';
 import { Card, CardProps } from "../Card";
 import { embaralharCards } from '../../utils/card';
 import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Temporizador } from './Temporizador';
 
 export interface GridProps {
   cards: CardProps[];
@@ -16,6 +18,11 @@ export function Grid( {cards}: GridProps ) {
   const desvirarCard = useRef(false);  
   const [movimentos, setMovimentos] = useState( 0 );
 
+  const [searchParams] = useSearchParams();
+  const modoDeJogo = searchParams.get('modo'); 
+
+  const tentativas = useRef<number>(0);
+
   const handleReset = () => {
     setSCards( embaralharCards( cards ) );
     primeiroCard.current = null;
@@ -23,6 +30,7 @@ export function Grid( {cards}: GridProps ) {
     desvirarCard.current = false; 
     exibirVitoria.current = true;   
     setMovimentos(0);
+    tentativas.current = 0;
   }
 
   useEffect( () => {
@@ -34,6 +42,11 @@ export function Grid( {cards}: GridProps ) {
       }
     }
   }, [sCards] );
+  
+
+  if( modoDeJogo === 'tempo' ) {
+
+  }
 
   const handleClick = (id: string) => {
     const novoEstado = sCards.map(card =>{
@@ -65,11 +78,15 @@ export function Grid( {cards}: GridProps ) {
         if( achouUmPar ){
           primeiroCard.current = null;
           segundoCard.current = null;
+
+          tentativas.current = 0;
         }else{
           desvirarCard.current = true;
         }
 
         setMovimentos( movimentos + 1 );
+
+        if( modoDeJogo === 'movimento' && !achouUmPar) tentativas.current = tentativas.current + 1;
       }
       return card;
     } );
@@ -77,12 +94,31 @@ export function Grid( {cards}: GridProps ) {
     setSCards( novoEstado );
   }
 
+  const handleMaximo = () => {
+    useEffect( () => {
+      if( tentativas.current >= 10 ){
+        setTimeout( () =>{
+          alert('Perdeu!');
+          handleReset();
+        }, 800 )
+        
+      }
+
+    }, [movimentos] );
+  }
+
+  if( modoDeJogo === 'movimento' ) handleMaximo();
+
   return( 
     <>
+      <div className="modo-jogo">
+
+        { modoDeJogo === 'tempo' && <Temporizador tempo={30} /> }        
+        { modoDeJogo === 'movimento' && <p>Tentativas: {tentativas.current}</p> }        
+      </div>
       <div className="info">              
         <p>Movimentos: {movimentos}</p>
         <button id='resetar' onClick={handleReset}>🔁</button>
-
       </div>
       <div className="grid">
         {
