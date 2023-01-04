@@ -1,7 +1,7 @@
 import './styles.css';
 import { Card, CardProps } from "../Card";
 import { embaralharCards } from '../../utils/card';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface GridProps {
   cards: CardProps[];
@@ -10,6 +10,7 @@ export interface GridProps {
 export function Grid( {cards}: GridProps ) {
 
   const [sCards, setSCards] = useState( () => embaralharCards( cards ) );
+  const exibirVitoria = useRef(true);
   const primeiroCard = useRef<CardProps | null>(null);
   const segundoCard = useRef<CardProps | null>(null);
   const desvirarCard = useRef(false);  
@@ -19,9 +20,20 @@ export function Grid( {cards}: GridProps ) {
     setSCards( embaralharCards( cards ) );
     primeiroCard.current = null;
     segundoCard.current = null;
-    desvirarCard.current = false;    
+    desvirarCard.current = false; 
+    exibirVitoria.current = true;   
     setMovimentos(0);
   }
+
+  useEffect( () => {
+    if ( sCards.length > 0 ) {
+      const naoVirado = sCards.find( c => c.flipped !== true );      
+      if( !naoVirado && exibirVitoria.current ){
+        setTimeout( () => alert('Venceu!'), 800 )
+        exibirVitoria.current = false;
+      }
+    }
+  }, [sCards] );
 
   const handleClick = (id: string) => {
     const novoEstado = sCards.map(card =>{
