@@ -1,5 +1,4 @@
 import { CardProps } from "../components/Card";
-import { cards } from "../data/cards";
 
 const gerarId = () =>  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
