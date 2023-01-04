@@ -67,8 +67,7 @@ export function Grid( {cards}: GridProps ) {
 
   return( 
     <>
-      <div className="info">
-        <h2>Jogo da Memória </h2>
+      <div className="info">      
         <button onClick={handleReset}>Resetar</button>
         <p>Movimentos: {movimentos}</p>
       </div>

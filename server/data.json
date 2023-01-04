@@ -66,5 +66,13 @@
       "id": "8",
       "conteudo": "👟"
     }
+  ],
+  "categorias": [
+    {
+      "id": "animais"
+    },
+    {
+      "id": "objetos"
+    }
   ]
 }
