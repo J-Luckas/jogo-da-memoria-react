@@ -1,0 +1,34 @@
+.conteudo_card {
+  position: relative;
+  width: 100%;
+  height: 158.5px;
+  transform-style: preserve-3d;
+  transition: transform 600ms ease-in-out;
+}
+
+.conteudo_card_flipped {
+  transform: rotateY(180deg);
+}
+
+.foto_card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rem;
+  cursor: pointer;
+}
+
+.foto_card_front {
+  background: var(--color-primary);
+  color: var(--text-color-light);
+}
+
+.foto_card_back {
+  background: var(--color-secondary);
+  color: var(--text-color-dark);
+  transform: rotateY(180deg);
+}
