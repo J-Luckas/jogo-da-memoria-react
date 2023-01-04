@@ -1,7 +1,7 @@
 import './styles.css';
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
 import { Categoria } from '../Categoria';
+import { Link } from 'react-router-dom';
 
 export const Categorias = () => {
 
@@ -18,9 +18,16 @@ export const Categorias = () => {
 
   return (
     <div className="categorias">
-      {data.categorias.map((item: any) => (
-        < Categoria item={ item } />
-      ))}
+      <div className="info-categorias">
+        Selecione uma categoria
+      </div>
+      <div className="lista-categorias">
+        {data.categorias.map((item: any) => (
+          <Link to={`categoria/${item.id}`}>   
+            < Categoria item={ item } />
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }

@@ -3,3 +3,14 @@
   min-width: 320px;
   margin: 0 auto;
 }
+
+.jogo > h1 {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+#voltar {
+  background-color: transparent;
+  border: none;
+  font-size: 3rem;
+}

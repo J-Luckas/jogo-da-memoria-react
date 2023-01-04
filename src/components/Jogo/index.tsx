@@ -27,7 +27,7 @@ export function Jogo() {
   
   return cards && ( 
     <div className="jogo">
-      <button title="Voltar" onClick={ () => navigate('/')}>
+      <button id='voltar' title="Voltar" onClick={ () => navigate('/')}>
         ⬅️
       </button>
       <h1>{id}</h1>

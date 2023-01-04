@@ -6,4 +6,19 @@
 
 .info {
   padding: 2rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#resetar {
+  background-color: transparent;
+  border: none;
+  font-size: 3rem;
+}
+
+.info > p {
+  font-size: 2rem;
 }

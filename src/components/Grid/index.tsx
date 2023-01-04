@@ -67,9 +67,10 @@ export function Grid( {cards}: GridProps ) {
 
   return( 
     <>
-      <div className="info">      
-        <button onClick={handleReset}>Resetar</button>
+      <div className="info">              
         <p>Movimentos: {movimentos}</p>
+        <button id='resetar' onClick={handleReset}>🔁</button>
+
       </div>
       <div className="grid">
         {
