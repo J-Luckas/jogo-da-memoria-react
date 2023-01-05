@@ -8,6 +8,8 @@ export interface GridProps {
   cards: CardProps[];
 }
 
+const TEMPO_MAXIMO = 30;
+
 export function Grid( {cards}: GridProps ) {
 
   const [sCards, setSCards] = useState( () => embaralharCards( cards ) );
@@ -22,7 +24,7 @@ export function Grid( {cards}: GridProps ) {
 
   const tentativas = useRef<number>(0);
 
-  const [ cronometro, setCronometro ] = useState(30);
+  const [ cronometro, setCronometro ] = useState(TEMPO_MAXIMO);
   const [ podeJogar, setPodeJogar ] = useState(false);
 
 
@@ -34,7 +36,7 @@ export function Grid( {cards}: GridProps ) {
     exibirVitoria.current = true;   
     setMovimentos(0);
     tentativas.current = 0;
-    setCronometro(30);
+    setCronometro(TEMPO_MAXIMO);
     setPodeJogar(false);
     clearInterval(id.current.intervalo);
   }
@@ -101,11 +103,12 @@ export function Grid( {cards}: GridProps ) {
   const handleMaximo = () => {
     useEffect( () => {
       if( tentativas.current >= 10 ){
+        exibirVitoria.current = false;
+        desvirarCards();
         setTimeout( () =>{
           alert('Perdeu!');
           handleReset();
-        }, 800 )
-        
+        }, 200);
       }
 
     }, [movimentos] );
@@ -130,9 +133,14 @@ export function Grid( {cards}: GridProps ) {
   
   useEffect( () => {
     if( cronometro <= 0 ){ 
-      alert('O tempo acabou!')
-      clearInterval(id.current.intervalo);
-      handleReset();        
+      exibirVitoria.current = false;
+      desvirarCards();      
+      
+      setTimeout( () => {
+        alert('O tempo acabou!')
+        handleReset();
+      }, 200);
+      
     }
   },[ cronometro ] )  
 
@@ -159,6 +167,13 @@ export function Grid( {cards}: GridProps ) {
     return;
   }
 
+  const desvirarCards = () => setSCards( 
+    sCards.map( (c) =>{
+      c.flipped = true;
+      return c;
+    } ) 
+  );
+  
   return( 
     <>
       <div className="modo-jogo">
