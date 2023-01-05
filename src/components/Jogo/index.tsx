@@ -16,14 +16,14 @@ export function Jogo() {
   useEffect( () => {        
     if( id !== 'aleatorio' ){
       async function requisicaoJogo() {
-        let response = await fetch(`http://localhost:3333/${id}`);
+        let response = await fetch(`https://jogo-da-memoria-server.herokuapp.com/${id}`);
         const resposta: CardProps[] = await response.json();
         setCards(resposta);
       }
       requisicaoJogo();   
     }else{
       async function getCategoriasAleatorio(): Promise<void> {
-        const result = await fetch(`http://localhost:3333/categorias`);
+        const result = await fetch(`https://jogo-da-memoria-server.herokuapp.com/categorias`);
 
         const categorias = await result.json();
 

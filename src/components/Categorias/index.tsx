@@ -8,7 +8,7 @@ export const Categorias = () => {
   const [data, setData ] = useState({ categorias: [] });
   useEffect( () => {
     async function getCategorias(): Promise<void> {
-      const result = await fetch(`http://localhost:3333/categorias`);
+      const result = await fetch(`https://jogo-da-memoria-server.herokuapp.com/categorias`);
 
       setData({ categorias: await result.json() });
     }

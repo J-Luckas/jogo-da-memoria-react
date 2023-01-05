@@ -7,7 +7,7 @@ export const ModoDeJogo = () => {
   const [data, setData ] = useState({ modos: [] });
   useEffect( () => {
     async function getModos(): Promise<void> {
-      const result = await fetch(`http://localhost:3333/modos`);
+      const result = await fetch(`https://jogo-da-memoria-server.herokuapp.com/modos`);
 
       setData({ modos: await result.json() });
     }

@@ -5,7 +5,7 @@ export const embaralharAleatorio = async ( categorias: CardProps[]) => {
   const allCards = categorias.map( async ( c: { id: string} ) => {
     if( c.id === 'aleatorio' ) return;
 
-    const result = await fetch(`http://localhost:3333/${c.id}`);
+    const result = await fetch(`https://jogo-da-memoria-server.herokuapp.com/${c.id}`);
 
     return result.json();
   });
