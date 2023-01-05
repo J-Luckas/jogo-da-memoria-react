@@ -113,7 +113,7 @@ export function Grid( {cards}: GridProps ) {
     <>
       <div className="modo-jogo">
 
-        { modoDeJogo === 'tempo' && <Temporizador tempo={30} /> }        
+        { modoDeJogo === 'tempo' && <Temporizador tempo={30} handleResetar={ handleReset } /> }        
         { modoDeJogo === 'movimento' && <p>Tentativas: {tentativas.current}</p> }        
       </div>
       <div className="info">              
