@@ -3,7 +3,6 @@ import { Card, CardProps } from "../Card";
 import { embaralharCards } from '../../utils/card';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Temporizador } from './Temporizador';
 
 export interface GridProps {
   cards: CardProps[];
@@ -23,6 +22,10 @@ export function Grid( {cards}: GridProps ) {
 
   const tentativas = useRef<number>(0);
 
+  const [ cronometro, setCronometro ] = useState(30);
+  const [ podeJogar, setPodeJogar ] = useState(false);
+
+
   const handleReset = () => {
     setSCards( embaralharCards( cards ) );
     primeiroCard.current = null;
@@ -31,22 +34,23 @@ export function Grid( {cards}: GridProps ) {
     exibirVitoria.current = true;   
     setMovimentos(0);
     tentativas.current = 0;
+    setCronometro(30);
+    setPodeJogar(false);
+    clearInterval(id.current.intervalo);
   }
 
   useEffect( () => {
     if ( sCards.length > 0 ) {
       const naoVirado = sCards.find( c => c.flipped !== true );      
       if( !naoVirado && exibirVitoria.current ){
-        setTimeout( () => alert('Venceu!'), 800 )
+        setTimeout( () =>{
+          alert('Venceu!');
+          handleReset();
+        }, 800 )
         exibirVitoria.current = false;
       }
     }
   }, [sCards] );
-  
-
-  if( modoDeJogo === 'tempo' ) {
-
-  }
 
   const handleClick = (id: string) => {
     const novoEstado = sCards.map(card =>{
@@ -108,21 +112,68 @@ export function Grid( {cards}: GridProps ) {
   }
 
   if( modoDeJogo === 'movimento' ) handleMaximo();
+  
+  const id = useRef<{intervalo: NodeJS.Timer}>({ intervalo: 0 as unknown as NodeJS.Timer });
+  const clear=()=>{
+    clearInterval(id.current.intervalo);
+  }
+
+  const iniciarTimer = () => {
+    if( podeJogar === true ) return clearInterval(id.current.intervalo);
+    id.current.intervalo = setInterval(()=>{
+      
+      setCronometro((time)=>time-1)
+    },1000);
+    
+    return ()=>clear();
+  }
+  
+  useEffect( () => {
+    if( cronometro <= 0 ){ 
+      alert('O tempo acabou!')
+      clearInterval(id.current.intervalo);
+      handleReset();        
+    }
+  },[ cronometro ] )  
+
+
+  const exibirBotaoComecar = () => {
+    if( podeJogar === false && modoDeJogo === 'tempo' ){
+      return <button
+        className='controles'
+        onClick={ () => { 
+          iniciarTimer();
+          setPodeJogar(true);
+        }
+      }>▶️</button>;
+    } else if (podeJogar === true && modoDeJogo === 'tempo'){
+      return <button 
+        className='controles'        
+        onClick={ () =>{
+          iniciarTimer();
+          setPodeJogar(false);
+        }
+      }>⏸️</button>;
+    }
+
+    return;
+  }
 
   return( 
     <>
       <div className="modo-jogo">
 
-        { modoDeJogo === 'tempo' && <Temporizador tempo={30} handleResetar={ handleReset } /> }        
+        { modoDeJogo === 'tempo' && <p>Tempo: {cronometro}</p> }        
         { modoDeJogo === 'movimento' && <p>Tentativas: {tentativas.current}</p> }        
       </div>
       <div className="info">              
         <p>Movimentos: {movimentos}</p>
-        <button id='resetar' onClick={handleReset}>🔁</button>
+        <button className='controles' id='resetar' onClick={handleReset}>🔁</button>
+        {exibirBotaoComecar()}
       </div>
       <div className="grid">
         {
-          sCards.map( c => <Card { ...c } key={c.id} handleClick={ handleClick }/>)
+          sCards.map( c => <Card { ...c } key={c.id} handleClick={ handleClick } habilitado={ modoDeJogo === 'tempo' ? podeJogar : true } />)
         }
       </div>
     </>

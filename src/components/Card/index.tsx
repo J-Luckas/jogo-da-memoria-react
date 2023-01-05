@@ -6,15 +6,17 @@ export interface CardProps {
   conteudo: string;
 
   handleClick?: (id: string) => void;
+
+  habilitado?: boolean;
 }
 
-export function Card({ flipped = false, conteudo, handleClick, id }: CardProps) {
+export function Card({ flipped = false, conteudo, handleClick, id, habilitado = true }: CardProps) {
 
   const nomesDasClasses = [ 'conteudo_card' ]
   flipped && nomesDasClasses.push('conteudo_card_flipped')
 
   const handleClickFuncao = () =>{
-    if( handleClick ){
+    if( handleClick && habilitado ){
       handleClick( id );
     }
   }
